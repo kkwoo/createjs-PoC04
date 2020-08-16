@@ -12,16 +12,21 @@ createjs.Tween.get(circle, { loop: true })
   .to({ alpha: 0, y: 225 }, 100)
   .to({ alpha: 1, y: 200 }, 500, createjs.Ease.getPowInOut(2))
   .to({ x: 100 }, 800, createjs.Ease.getPowInOut(2));
-  // createjs.Ticker.setFPS(60);
+  
   createjs.Ticker.framerate = 60;
-createjs.Ticker.addEventListener("tick", stage);
-stage.on("stagemousedown", function(evt) {
-    //alert("the canvas was clicked at "+evt.stageX+","+evt.stageY);
-      var circle2 = new createjs.Shape();
-      circle2.graphics.beginFill("Red").drawCircle(0, 0, 50);
-      circle2.x = evt.stageX;
-      circle2.y = evt.stageY;
-      stage.addChild(circle2);
-
-})
+  createjs.Ticker.addEventListener("tick", stage);
+  
+  stage.on("stagemousedown", function(evt) {
+      //alert("the canvas was clicked at "+evt.stageX+","+evt.stageY);
+        var circle2 = new createjs.Shape();
+        circle2.graphics.beginFill("Red").drawCircle(0, 0, 50);
+        circle2.x = evt.stageX;
+        circle2.y = evt.stageY;
+        circle2.scale = evt.stageX * evt.stageY / 100000;
+/*        circle2.on("tick", function(evt) {
+          
+        };
+        */
+        stage.addChild(circle2);
+  });
 }
