@@ -23,10 +23,19 @@ createjs.Tween.get(circle, { loop: true })
         circle2.x = evt.stageX;
         circle2.y = evt.stageY;
         circle2.scale = evt.stageX * evt.stageY / 100000;
-/*        circle2.on("tick", function(evt) {
-          
-        };
-        */
         stage.addChild(circle2);
+        stage.update(evt);
   });
+
+  createjs.Ticker.addEventListener("tick", function(evt){
+			for (var i=0; i<stage.numChildren; i++) {
+				var child = stage.getChildAt(i);
+				child.alpha = 0.1;
+				var pt = circle.localToLocal(0, 0, child);
+				if (child.hitTest(pt.x, pt.y)) { child.alpha = 1; }
+			}
+			
+			stage.update(evt);
+  });
+  
 }
